@@ -2959,7 +2959,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
             this.tonguedis *= .93
             this.tonguedis -= 1
             this.tonguemom *= .91
+            
+
+            if(tadpoles.indexOf(this) == 0){
             this.body.move()
+            }
             if(keysPressed['w'] || !water.isPointInside(this.body)){
                 if(keysPressed['w']){
             if(tadpoles.indexOf(this) == 0){
@@ -3051,7 +3055,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
             }
             if(floor.isPointInside(this.body)){
                 this.body.ymom*=-1.5
+            if(tadpoles.indexOf(this) == 0){
                 this.body.move()
+            }
             }
 
 
@@ -3303,7 +3309,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
             this.tonguedis *= .93
             this.tonguedis -= 1
             this.tonguemom *= .91
+            if(tadpoles.indexOf(this) == 0){
             this.body.move()
+            }
             if(keysPressed['w'] || !water.isPointInside(this.body)){
                 if(keysPressed['w']){
             if(tadpoles.indexOf(this) == 0){
@@ -3397,7 +3405,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
             }
             if(floor.isPointInside(this.body)){
                 this.body.ymom*=-1.5
+            if(tadpoles.indexOf(this) == 0){
                 this.body.move()
+            }
             }
 
 
@@ -3564,7 +3574,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
             this.tonguedis *= .95
             this.tonguedis -= 1
             this.tonguemom *= .90
+            if(tadpoles.indexOf(this) == 0){
             this.body.move()
+            }
             if(tadpoles.indexOf(this) == 0){
             if(keysPressed['w'] || !water.isPointInside(this.body)){
                 if(keysPressed['w']){
@@ -3661,7 +3673,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
             }
             if(floor.isPointInside(this.body)){
                 this.body.ymom*=-1.5
+            if(tadpoles.indexOf(this) == 0){
                 this.body.move()
+            }
             }
 
 
@@ -3826,7 +3840,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
             this.tonguedis *= .93
             this.tonguedis -= 1
             this.tonguemom *= .91
+            if(tadpoles.indexOf(this) == 0){
             this.body.move()
+            }
             
             if(keysPressed['w'] || !water.isPointInside(this.body)){
                 if(keysPressed['w']){
@@ -3930,7 +3946,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
             }
             if(floor.isPointInside(this.body)){
                 this.body.ymom*=-1.5
+
+            if(tadpoles.indexOf(this) == 0){
                 this.body.move()
+            }
             }
 
 

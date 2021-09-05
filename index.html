@@ -2643,7 +2643,7 @@ DigSocketize(ws)
                         diggers[diggerIds.indexOf(JSON.parse(data).id)] = new Digger(JSON.parse(data))
                   }else{
                         diggerIds.push(JSON.parse(data).id)
-                        diggers[diggerIds.length] = new Digger(JSON.parse(data))
+                        diggers[diggerIds.length-1] = new Digger(JSON.parse(data))
                   }
 
                  }else{
@@ -5534,19 +5534,9 @@ DigSocketize(ws)
 FrogSocketize(ws)
     function FrogSocketize(ws) {
                 
-        ws.addEventListener("open", () => {
+        // ws.addEventListener("open", () => {
             ws.addEventListener("message", ({ data }) => {
-                if(JSON.parse(data).diggers >= 0){
-
-
-                  if(diggerIds.includes(JSON.parse(data).id)){
-                        diggers[diggerIds.indexOf(JSON.parse(data).id)] = new BullFrog(JSON.parse(data))
-                  }else{
-                        diggerIds.push(JSON.parse(data).id)
-                        diggers[diggerIds.length] = new Digger(JSON.parse(data))
-                  }
-
-                }else if(JSON.parse(data).flies >= 0){
+           if(JSON.parse(data).flies >= 0){
                   // //console.log("hit")
 
                   if(frogIds.includes(JSON.parse(data).id)){
@@ -5568,13 +5558,13 @@ FrogSocketize(ws)
 
                   if(JSON.parse(data).frog == 1){
                   if(JSON.parse(data).type == 1){
-                  tadpoles[frogIds.length] = new BullFrog(JSON.parse(data))
+                  tadpoles[frogIds.length-1] = new BullFrog(JSON.parse(data))
                   }else if(JSON.parse(data).type == 2){
-                  tadpoles[frogIds.length] = new GlideFrog(JSON.parse(data))
+                  tadpoles[frogIds.length-1] = new GlideFrog(JSON.parse(data))
                   }else if(JSON.parse(data).type == 3){
-                  tadpoles[frogIds.length] = new Frog(JSON.parse(data))
+                  tadpoles[frogIds.length-1] = new Frog(JSON.parse(data))
                   }else if(JSON.parse(data).type == 4){
-                  tadpoles[frogIds.length] = new PygmyFrog(JSON.parse(data))
+                  tadpoles[frogIds.length-1] = new PygmyFrog(JSON.parse(data))
                   }
                   }
                   }
@@ -5598,7 +5588,7 @@ FrogSocketize(ws)
         json.connecting = 1
 
         ws.send(JSON.stringify(json))
-        })
+        // })
 
     }
     function main() {

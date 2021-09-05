@@ -331,7 +331,7 @@ wss.on("connection", ws => {
             return
           }else  if (JSON.parse(data).room > -1) {
             if(true===true){
-                
+
             let minarr = []
             for (let t = 0; t < games[ws.assigned].players.length; t++) {
                 minarr.push(games[ws.assigned].players[t].pair[1])
@@ -496,6 +496,7 @@ wss.on("connection", ws => {
                 sjon.playerIDs = ids
                 ws.send(JSON.stringify(sjon))
             } else {
+                console.log(JSON.parse(data))
                 data = JSON.parse(data)
                 data.players = wss.clients.size 
                 //ah geex this is gonna be a bad thing to fix gggeez

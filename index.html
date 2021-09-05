@@ -13,6 +13,20 @@
 
 window.addEventListener('DOMContentLoaded', (event) => {
 
+
+    let textcanvas =  document.getElementById("textcanvas"); //getting canvas from document
+
+        textcanvas.style.background = "#00FF00"
+    textcanvas.width = 640
+    textcanvas.height = 360
+    let textcanvas_context = textcanvas.getContext('2d');
+    let textscroll = 12
+    textcanvas.hidden = true
+    textcanvas_context.fillStyle = "red"
+textcanvas_context.fillRect(0,0, 100,100)
+
+
+let textstring = ""
         let frogid = Math.random()
     let windowspares = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
 
@@ -77,7 +91,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             }
             gamepadAPI.axesStatus = axes;// assign received values
             gamepadAPI.buttonsStatus = pressed;
-            // console.log(pressed); // return buttons for debugging purposes
+            // //console.log(pressed); // return buttons for debugging purposes
             return pressed;
         },
         buttonPressed: function (button, hold) {
@@ -391,7 +405,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 canvas_context.fill()
                 canvas_context.stroke();
             } else {
-                console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
+                //console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
             }
         }
         move() {
@@ -542,7 +556,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 canvas_context.fill()
                 canvas_context.stroke();
             } else {
-                console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
+                // //console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
             }
         }
         move() {
@@ -1028,7 +1042,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
 
-            console.log(this)
+            //console.log(this)
 
             // this.spring = new Spring(x, y, radius, color, this.pin, memberLength, gravity)
             // this.springs.push(this.spring)
@@ -1167,6 +1181,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }, 17)
         document.addEventListener('keydown', (event) => {
             keysPressed[event.key] = true;
+
+            textstring+=event.key
         });
         document.addEventListener('keyup', (event) => {
             delete keysPressed[event.key];
@@ -1216,7 +1232,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     }
     function gamepad_control(object, speed = 1) { // basic control for objects using the controler
-//         console.log(gamepadAPI.axesStatus[1]*gamepadAPI.axesStatus[0]) //debugging
+//         //console.log(gamepadAPI.axesStatus[1]*gamepadAPI.axesStatus[0]) //debugging
         if (typeof object.body != 'undefined') {
             if(typeof (gamepadAPI.axesStatus[1]) != 'undefined'){
                 if(typeof (gamepadAPI.axesStatus[0]) != 'undefined'){
@@ -1300,6 +1316,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     let setup_canvas = document.getElementById('canvas') //getting canvas from document
 
+
+
+
     setUp(setup_canvas) // setting up canvas refrences, starting timer. 
 
     // object instantiation and creation happens here 
@@ -1309,7 +1328,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
              this.running = 0
              this.ran = 0
             this.body  = new Circle(x,y, 20, getRandomColor())
-            this.name = "Click to  play Froggair" //getRandomColor()+getRandomColor()
+            if(icons.length == 0){
+            this.name = "Click to play Froggair" //getRandomColor()+getRandomColor()
+
+            }else if(icons.length == 2){
+            this.name = "Click to chat" //getRandomColor()+getRandomColor()
+
+            }
             this.marked = 0
             this.gamenum = icons.length
         }
@@ -1408,7 +1433,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             }
             gamepadAPI.axesStatus = axes;// assign received values
             gamepadAPI.buttonsStatus = pressed;
-            // console.log(pressed); // return buttons for debugging purposes
+            // //console.log(pressed); // return buttons for debugging purposes
             return pressed;
         },
         buttonPressed: function (button, hold) {
@@ -1769,7 +1794,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 canvas_context.fill()
                 canvas_context.stroke();
             } else {
-                console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
+                //console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
             }
         }
         move() {
@@ -1921,7 +1946,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 canvas_context.fill()
                 canvas_context.stroke();
             } else {
-                console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
+                //console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
             }
         }
         move() {
@@ -2407,7 +2432,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
 
-            console.log(this)
+            //console.log(this)
 
             // this.spring = new Spring(x, y, radius, color, this.pin, memberLength, gravity)
             // this.springs.push(this.spring)
@@ -2761,7 +2786,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     }
     function gamepad_control(object, speed = 1) { // basic control for objects using the controler
-//         console.log(gamepadAPI.axesStatus[1]*gamepadAPI.axesStatus[0]) //debugging
+//         //console.log(gamepadAPI.axesStatus[1]*gamepadAPI.axesStatus[0]) //debugging
         if (typeof object.body != 'undefined') {
             if(typeof (gamepadAPI.axesStatus[1]) != 'undefined'){
                 if(typeof (gamepadAPI.axesStatus[0]) != 'undefined'){
@@ -2940,32 +2965,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
             this.scale = 1
             this.scores = []
             this.score = args.score
-
-
-                this.guidedis=3+ (this.flies*.12345)*.3
-                this.body.radius=5+ (this.flies*.12345)*.3
-                this.eye2.radius=1.1+ (this.flies*.12345)*.03
-                this.eye1.radius=1.1+ (this.flies*.12345)*.03
-                this.leg1.radius=3+ (this.flies*.12345)*.15
-                this.leg2.radius=3+ (this.flies*.12345)*.15
-                this.leg3.radius=3+ (this.flies*.12345)*.15
-                this.leg4.radius=3+ (this.flies*.12345)*.15
-                this.leg1x.radius=2+ (this.flies*.12345)*.09
-                this.leg2x.radius=2+ (this.flies*.12345)*.09
-                this.leg3x.radius=2+ (this.flies*.12345)*.09
-                this.leg4x.radius=2+ (this.flies*.12345)*.09
-                this.tongue.radius=3+ (this.flies*.12345)*.09
-    
-                this.leg1link.width =4+ (this.flies*.12345)* .15
-                this.leg2link.width =4+ (this.flies*.12345)* .15
-                this.leg2xlink.width =2.5+ (this.flies*.12345)* .15
-                this.leg1xlink.width =2.5+ (this.flies*.12345)* .15
-    
-                this.leg3link.width =4+ (this.flies*.12345)* .15
-                this.leg4link.width =4+ (this.flies*.12345)* .15
-                this.leg3xlink.width =2.5+ (this.flies*.12345)* .15
-                this.leg4xlink.width =2.5+ (this.flies*.12345)* .15
-
 
           }
         }
@@ -3317,34 +3316,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
             this.scale = 1
             this.scores = []
             this.score = args.score
-
-
-
-
-                this.guidedis=3+ (this.flies*.12345)*.3
-                this.body.radius=3+ (this.flies*.12345)*.15
-                this.eye2.radius= 1.1+(this.flies*.12345)*.03
-                this.eye1.radius=1.1+ (this.flies*.12345)*.03
-                this.leg1.radius=2+ (this.flies*.12345)*.15
-                this.leg2.radius=2+ (this.flies*.12345)*.15
-                this.leg3.radius=2+ (this.flies*.12345)*.15
-                this.leg4.radius=2+ (this.flies*.12345)*.15
-                this.leg1x.radius=1.5+ (this.flies*.12345)*.09
-                this.leg2x.radius=1.5+ (this.flies*.12345)*.09
-                this.leg3x.radius=1.5+ (this.flies*.12345)*.09
-                this.leg4x.radius=1.5+ (this.flies*.12345)*.09
-                this.tongue.radius=2+ (this.flies*.12345)*.09
-    
-                this.leg1link.width =4+ (this.flies*.12345)* .15
-                this.leg2link.width =4+ (this.flies*.12345)* .15
-                this.leg2xlink.width =2.5+ (this.flies*.12345)* .15
-                this.leg1xlink.width =2.5+ (this.flies*.12345)* .15
-    
-                this.leg3link.width =2.5+ (this.flies*.12345)* .15
-                this.leg4link.width =2.5+ (this.flies*.12345)* .15
-                this.leg3xlink.width =1+ (this.flies*.12345)* .15
-                this.leg4xlink.width =1+ (this.flies*.12345)* .15
-
             }
         }
         draw(){
@@ -3606,33 +3577,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
             this.scale = 1
             this.scores = []
             this.score = args.score
-
-
-
-                this.guidedis= 3+(this.flies*.12345)*.28
-                this.body.radius=8+ (this.flies*.12345)*.7
-                this.eye2.radius=1.1+ (this.flies*.12345)*.03
-                this.eye1.radius=1.1+ (this.flies*.12345)*.03
-                this.leg1.radius=3+ (this.flies*.12345)*.15
-                this.leg2.radius=3+ (this.flies*.12345)*.15
-                this.leg3.radius=3+ (this.flies*.12345)*.15
-                this.leg4.radius=3+ (this.flies*.12345)*.15
-                this.leg1x.radius=2+ (this.flies*.12345)*.09
-                this.leg2x.radius=2+ (this.flies*.12345)*.09
-                this.leg3x.radius=2+ (this.flies*.12345)*.09
-                this.leg4x.radius=2+ (this.flies*.12345)*.09
-                this.tongue.radius=5+ (this.flies*.12345)*.13
-    
-                this.leg1link.width =4+ (this.flies*.12345)* .15
-                this.leg2link.width =4+ (this.flies*.12345)* .15
-                this.leg2xlink.width =2.5+ (this.flies*.12345)* .15
-                this.leg1xlink.width =2.5+ (this.flies*.12345)* .15
-    
-                this.leg3link.width =4+ (this.flies*.12345)* .15
-                this.leg4link.width =4+ (this.flies*.12345)* .15
-                this.leg3xlink.width =2.5+ (this.flies*.12345)* .15
-                this.leg4xlink.width =2.5+ (this.flies*.12345)* .15
-
         }
         }
         draw(){
@@ -3903,32 +3847,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
             this.scale = 1
             this.scores = []
             this.score = args.score
-
-
-
-                this.guidedis=3+ (this.flies*.12345)*.31
-                this.body.radius=4+ (this.flies*.12345)*.28
-                this.eye2.radius=1.1+ (this.flies*.12345)*.03
-                this.eye1.radius=1.1+ (this.flies*.12345)*.03
-                this.leg1.radius=3+ (this.flies*.12345)*.15
-                this.leg2.radius=3+ (this.flies*.12345)*.15
-                this.leg3.radius=3+ (this.flies*.12345)*.15
-                this.leg4.radius=3+ (this.flies*.12345)*.15
-                this.leg1x.radius=5+ (this.flies*.12345)*.19
-                this.leg2x.radius=5+ (this.flies*.12345)*.19
-                this.leg3x.radius=5+ (this.flies*.12345)*.19
-                this.leg4x.radius=5+ (this.flies*.12345)*.19
-                this.tongue.radius=3+ (this.flies*.12345)*.19
-    
-                this.leg1link.width =5+ (this.flies*.12345)* .22
-                this.leg2link.width =5+ (this.flies*.12345)* .22
-                this.leg2xlink.width =3.5+ (this.flies*.12345)* .22
-                this.leg1xlink.width =3.5+ (this.flies*.12345)* .22
-    
-                this.leg3link.width =5+ (this.flies*.12345)* .22
-                this.leg4link.width =5+(this.flies*.12345)* .22
-                this.leg3xlink.width =3.5+ (this.flies*.12345)* .22
-                this.leg4xlink.width =3.5+ (this.flies*.12345)* .22
           }
         }
         draw(){
@@ -4191,7 +4109,7 @@ FrogSocketize(ws)
         ws.addEventListener("open", () => {
             ws.addEventListener("message", ({ data }) => {
                 if(JSON.parse(data).flies >= 0){
-                  // console.log("hit")
+                  // //console.log("hit")
 
                   if(frogIds.includes(JSON.parse(data).id)){
                   if(JSON.parse(data).frog == 1){
@@ -4224,7 +4142,15 @@ FrogSocketize(ws)
                   }
 
                   
-                  // console.log(tadpoles)
+                  // //console.log(tadpoles)
+                }else{
+
+                    textcanvas_context.font = "12px arial"
+                    textcanvas_context.fillStyle = JSON.parse(data).color
+                    textcanvas_context.fillText(`(${JSON.parse(data).name})`+ JSON.parse(data).text, 0, textscroll)
+                    textscroll += 12
+                    console.log("wt")
+                    // textcanvas.translate(0, 12)
                 }
             })
 
@@ -4285,7 +4211,7 @@ FrogSocketize(ws)
                 ws.send(JSON.stringify(json))
                 }
               }else{
-                //   console.log(tadpoles[t])
+                //   //console.log(tadpoles[t])
               }
                 tadpoles[t].draw()
             }
@@ -4413,7 +4339,7 @@ FrogSocketize(ws)
             }
             gamepadAPI.axesStatus = axes;// assign received values
             gamepadAPI.buttonsStatus = pressed;
-            // console.log(pressed); // return buttons for debugging purposes
+            // //console.log(pressed); // return buttons for debugging purposes
             return pressed;
         },
         buttonPressed: function (button, hold) {
@@ -4722,7 +4648,7 @@ FrogSocketize(ws)
                 canvas_context.fill()
                 canvas_context.stroke();
             } else {
-                // console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
+                // //console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
             }
         }
 
@@ -4890,7 +4816,7 @@ FrogSocketize(ws)
                 canvas_context.fill()
                 canvas_context.stroke();
             } else {
-                console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
+                //console.log("The circle is below a radius of 0, and has not been drawn. The circle is:", this)
             }
         }
         move() {
@@ -5377,7 +5303,7 @@ FrogSocketize(ws)
                 }
             }
 
-            // console.log(this)
+            // //console.log(this)
 
             // this.spring = new Spring(x, y, radius, color, this.pin, memberLength, gravity)
             // this.springs.push(this.spring)
@@ -5542,7 +5468,7 @@ FrogSocketize(ws)
         }
     }
     function gamepad_control(object, speed = 1) { // basic control for objects using the controler
-//         console.log(gamepadAPI.axesStatus[1]*gamepadAPI.axesStatus[0]) //debugging
+//         //console.log(gamepadAPI.axesStatus[1]*gamepadAPI.axesStatus[0]) //debugging
         if (typeof object.body != 'undefined') {
             if(typeof (gamepadAPI.axesStatus[1]) != 'undefined'){
                 if(typeof (gamepadAPI.axesStatus[0]) != 'undefined'){
@@ -5656,7 +5582,7 @@ FrogSocketize(ws)
             // eov.body.ymom = ((eov.body.ymom *.4) + (this.body.ymom*.6))*1.4
             this.children.push(eov)
             lights.push(eov)
-            // console.log(lights)
+            // //console.log(lights)
         }
         rep(){
 
@@ -5798,6 +5724,11 @@ FrogSocketize(ws)
                         this.window = new Rectangle(10,10, 700, 700, "transparent")
 
                     }
+                    if(this.index == 2){
+                        this.window = new Rectangle(710,360, 590, 360, "transparent")
+                        windowspares[this.index] = textcanvas
+                        this.main = this.body.draw
+                    }
                 }else{
                     this.running = 1
                 }
@@ -5808,7 +5739,7 @@ FrogSocketize(ws)
 
 
 
-    for(let t=  0;t<1;t++){
+    for(let t=  0;t<3;t++){
         let icon = new Icon(1100, 100+t*100)
         icon.index = t
         icons.push(icon)
@@ -5817,9 +5748,15 @@ FrogSocketize(ws)
 
     class Scores {
         constructor(){
-
+            
         }
     }
+
+    let text = ''
+
+    // if(keysPressed['s']){
+    //     chat.send(text)
+    // }
 
     function main() {
         canvas_context.clearRect(0, 0, canvas.width, canvas.height)  // refreshes the image
@@ -5831,6 +5768,33 @@ FrogSocketize(ws)
         for(let t = 0;t<icons.length;t++){
             icons[t].print()
         }
+        if(keysPressed['t']){
+            icons[2].marked =1 
+            if(keysPressed['=']){
+
+if(textstring.length > 1){
+            let tson = {}
+            tson.color = getRandomColor()
+            tson.name = getRandomColor()+getRandomColor()
+            tson.text = textstring
+            tson.size = 0
+
+
+                ws.send(JSON.stringify(tson))
+                tson = JSON.stringify(tson)
+
+                    textcanvas_context.font = "12px arial"
+                    textcanvas_context.fillStyle = JSON.parse(tson).color
+                    textcanvas_context.fillText(`(${JSON.parse(tson).name})`+ JSON.parse(tson).text, 0, textscroll)
+                    textscroll += 12
+                    console.log("wt")
+                textstring = ''
+}
+
+
+            }else{
+            }
+        }
     }
 })
 
@@ -5841,6 +5805,7 @@ FrogSocketize(ws)
   <ul>
   <div id="dog-image-container" class="canvas">
     <canvas id="canvas" width="1280" height="720" class="canvas"></canvas>
+    <canvas id="textcanvas" width="640" height="360" class="canvas"></canvas>
     <canvas hidden id="xcanvas" width="1280" height="720" class="canvas"></canvas>
   </div>
 </ul>

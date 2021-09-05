@@ -13,12 +13,16 @@
 
 window.addEventListener('DOMContentLoaded', (event) => {
 
+    let enterlock = 0
+    let typing = 0
+
+
 
     let textcanvas =  document.getElementById("textcanvas"); //getting canvas from document
 
         textcanvas.style.background = "#00FF00"
     textcanvas.width = 640
-    textcanvas.height = 360
+    textcanvas.height = 36000
     let textcanvas_context = textcanvas.getContext('2d');
     let textscroll = 12
     textcanvas.hidden = true
@@ -1180,10 +1184,31 @@ let textstring = ""
         document.addEventListener('keydown', (event) => {
             keysPressed[event.key] = true;
 
-            textstring+=event.key
+            if(event.key == 'Enter'){
+                enterlock = 1
+            }else{           
+                 if(event.key == 'Meta' ||event.key == 'Shift' ||event.key == 'Control' ||event.key == 'Alt' ||event.key == 'Tab' ||event.key == 'CapsLock' ||event.key == 'Backspace'){
+                 }else{
+                     if(typing == 1){
+                    textstring+=event.key
+                     }
+                 }
+            }
+
+            if(event.key == 'BackSpace' ||event.key == 'Backspace'){
+                let ts =  (textstring.split(''))
+                ts.splice(ts.length-2, 1)
+                console.log(ts)
+                textstring = ts.join('')
+            }
+
         });
         document.addEventListener('keyup', (event) => {
             delete keysPressed[event.key];
+
+            if(event.key == 'Enter'){
+                enterlock = 0
+            }
         });
         window.addEventListener('pointerdown', e => {
             FLEX_engine = canvas.getBoundingClientRect();
@@ -2580,30 +2605,30 @@ let textstring = ""
             // TIP_engine.y = YS_engine
             // TIP_engine.body = TIP_engine
             if(timed == 0){
-                if(buttontimeb.isPointInside(TIP_engine)){
-                    timed = 1
-                    time = new Date()
-                    moment = time.getTime()
+                // if(buttontimeb.isPointInside(TIP_engine)){
+                //     timed = 1
+                //     time = new Date()
+                //     moment = time.getTime()
                     
-                    tadpoles[0] = new BullFrog()
+                //     tadpoles[0] = new BullFrog()
                                         
-                        for(let t = 0;t<312000;t++){
-                            flies.push(new Fly())
+                //         for(let t = 0;t<312000;t++){
+                //             flies.push(new Fly())
                             
-                        if(Math.random()<.1){
-                            flies[t].body.y-=16000
-                            flies[t].body.radius*=3
-                        }
-                        if(Math.random()<.1){
-                            flies[t].body.y-=16000
-                            flies[t].body.radius*=3
-                        }
-                        if(Math.random()<.1){
-                            flies[t].body.y-=16000
-                            flies[t].body.radius*=1.5
-                        }
-                        }
-                }
+                //         if(Math.random()<.1){
+                //             flies[t].body.y-=16000
+                //             flies[t].body.radius*=3
+                //         }
+                //         if(Math.random()<.1){
+                //             flies[t].body.y-=16000
+                //             flies[t].body.radius*=3
+                //         }
+                //         if(Math.random()<.1){
+                //             flies[t].body.y-=16000
+                //             flies[t].body.radius*=1.5
+                //         }
+                //         }
+                // }
                 if(buttonzenb.isPointInside(TIP_engine)){
                     timed = -1
                     
@@ -2627,30 +2652,30 @@ let textstring = ""
                     }
                 }
 
-                if(buttontimeg.isPointInside(TIP_engine)){
-                    timed = 1
-                    time = new Date()
-                    moment = time.getTime()
+                // if(buttontimeg.isPointInside(TIP_engine)){
+                //     timed = 1
+                //     time = new Date()
+                //     moment = time.getTime()
                     
-                    tadpoles[0] = new GlideFrog()   
+                //     tadpoles[0] = new GlideFrog()   
                        
-                    for(let t = 0;t<312000;t++){
-                        flies.push(new Fly())
+                //     for(let t = 0;t<312000;t++){
+                //         flies.push(new Fly())
                         
-                    if(Math.random()<.1){
-                        flies[t].body.y-=16000
-                        flies[t].body.radius*=3
-                    }
-                    if(Math.random()<.1){
-                        flies[t].body.y-=16000
-                        flies[t].body.radius*=3
-                    }
-                    if(Math.random()<.1){
-                        flies[t].body.y-=16000
-                        flies[t].body.radius*=1.5
-                    }
-                    }
-                }
+                //     if(Math.random()<.1){
+                //         flies[t].body.y-=16000
+                //         flies[t].body.radius*=3
+                //     }
+                //     if(Math.random()<.1){
+                //         flies[t].body.y-=16000
+                //         flies[t].body.radius*=3
+                //     }
+                //     if(Math.random()<.1){
+                //         flies[t].body.y-=16000
+                //         flies[t].body.radius*=1.5
+                //     }
+                //     }
+                // }
                 if(buttonzeng.isPointInside(TIP_engine)){
                     timed = -1
                     
@@ -2675,30 +2700,30 @@ let textstring = ""
                 }
 
 
-                if(buttontimef.isPointInside(TIP_engine)){
-                    timed = 1
-                    time = new Date()
-                    moment = time.getTime()
+                // if(buttontimef.isPointInside(TIP_engine)){
+                //     timed = 1
+                //     time = new Date()
+                //     moment = time.getTime()
                     
-                    tadpoles[0] = new Frog()           
+                //     tadpoles[0] = new Frog()           
                        
-                    for(let t = 0;t<312000;t++){
-                        flies.push(new Fly())
+                //     for(let t = 0;t<312000;t++){
+                //         flies.push(new Fly())
                         
-                    if(Math.random()<.1){
-                        flies[t].body.y-=16000
-                        flies[t].body.radius*=3
-                    }
-                    if(Math.random()<.1){
-                        flies[t].body.y-=16000
-                        flies[t].body.radius*=3
-                    }
-                    if(Math.random()<.1){
-                        flies[t].body.y-=16000
-                        flies[t].body.radius*=1.5
-                    }
-                    }
-                }
+                //     if(Math.random()<.1){
+                //         flies[t].body.y-=16000
+                //         flies[t].body.radius*=3
+                //     }
+                //     if(Math.random()<.1){
+                //         flies[t].body.y-=16000
+                //         flies[t].body.radius*=3
+                //     }
+                //     if(Math.random()<.1){
+                //         flies[t].body.y-=16000
+                //         flies[t].body.radius*=1.5
+                //     }
+                //     }
+                // }
                 if(buttonzenf.isPointInside(TIP_engine)){
                     timed = -1
                     tadpoles[0] = new Frog()         
@@ -2721,30 +2746,30 @@ let textstring = ""
                     }
                 }
 
-                if(buttontimep.isPointInside(TIP_engine)){
-                    timed = 1
-                    time = new Date()
-                    moment = time.getTime()
+                // if(buttontimep.isPointInside(TIP_engine)){
+                //     timed = 1
+                //     time = new Date()
+                //     moment = time.getTime()
                     
-                    tadpoles[0] = new PygmyFrog()    
+                //     tadpoles[0] = new PygmyFrog()    
                        
-                    for(let t = 0;t<312000;t++){
-                        flies.push(new Fly())
+                //     for(let t = 0;t<312000;t++){
+                //         flies.push(new Fly())
                         
-                    if(Math.random()<.1){
-                        flies[t].body.y-=16000
-                        flies[t].body.radius*=3
-                    }
-                    if(Math.random()<.1){
-                        flies[t].body.y-=16000
-                        flies[t].body.radius*=3
-                    }
-                    if(Math.random()<.1){
-                        flies[t].body.y-=16000
-                        flies[t].body.radius*=1.5
-                    }
-                    }
-                }
+                //     if(Math.random()<.1){
+                //         flies[t].body.y-=16000
+                //         flies[t].body.radius*=3
+                //     }
+                //     if(Math.random()<.1){
+                //         flies[t].body.y-=16000
+                //         flies[t].body.radius*=3
+                //     }
+                //     if(Math.random()<.1){
+                //         flies[t].body.y-=16000
+                //         flies[t].body.radius*=1.5
+                //     }
+                //     }
+                // }
                 if(buttonzenp.isPointInside(TIP_engine)){
                     timed = -1
                     tadpoles[0] = new PygmyFrog()   
@@ -4145,9 +4170,9 @@ FrogSocketize(ws)
 
                     textcanvas_context.font = "12px arial"
                     textcanvas_context.fillStyle = JSON.parse(data).color
-                    textcanvas_context.fillText(`(${JSON.parse(data).name})`+ JSON.parse(data).text, 0, textscroll)
+                    textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
                     textscroll += 12
-                    console.log("wt")
+                    // textcanvas_context.translate(0, 12)
                     // textcanvas.translate(0, 12)
                 }
             })
@@ -4240,33 +4265,33 @@ FrogSocketize(ws)
                 }
             }
         }else{
-            buttontimeb.draw()
+            // buttontimeb.draw()
             buttonzenb.draw()
-            buttontimeg.draw()
+            // buttontimeg.draw()
             buttonzeng.draw()
-            buttontimef.draw()
+            // buttontimef.draw()
             buttonzenf.draw()
-            buttontimep.draw()
+            // buttontimep.draw()
             buttonzenp.draw()
             let size = 20/tadpoles[0].scale
             canvas_context.font = `${size}px arial`
             canvas_context.fillStyle = "black"
-            canvas_context.fillText("Zen Bullfrog", 120, 150)
+            canvas_context.fillText("Play Bullfrog", 120, 150)
             canvas_context.fillStyle = "white"
-            canvas_context.fillText("Timed Frog", 520, 450)
+            // canvas_context.fillText("Timed Frog", 520, 450)
             canvas_context.fillStyle = "black"
-            canvas_context.fillText("Zen Glidefrog", 120, 300)
+            canvas_context.fillText("Play Glidefrog", 120, 300)
             canvas_context.fillStyle = "white"
-            canvas_context.fillText("Timed Glidefrog", 520, 300)
+            // canvas_context.fillText("Timed Glidefrog", 520, 300)
             canvas_context.fillStyle = "black"
-            canvas_context.fillText("Zen Frog", 120, 450)
+            canvas_context.fillText("Play Frog", 120, 450)
             canvas_context.fillStyle = "white"
-            canvas_context.fillText("Timed Bullfrog", 520, 150)
+            // canvas_context.fillText("Timed Bullfrog", 520, 150)
 
             canvas_context.fillStyle = "black"
-            canvas_context.fillText("Zen Pygmy Frog", 120, 600)
+            canvas_context.fillText("Play Pygmy Frog", 120, 600)
             canvas_context.fillStyle = "white"
-            canvas_context.fillText("Timed Pygmy Frog", 510, 600)
+            // canvas_context.fillText("Timed Pygmy Frog", 510, 600)
 
         }
     }
@@ -5707,7 +5732,13 @@ FrogSocketize(ws)
             if(this.running == 1){
                 this.main()
                 if(windowspares[this.index].width > 0){
+                    if(this.index == 2){
+                    canvas_context.drawImage(windowspares[this.index], 0, textscroll, windowspares[this.index].width, 360, this.window.x,this.window.y,this.window.width, this.window.height)
+
+                    }else{
                     canvas_context.drawImage(windowspares[this.index], 0, 0, windowspares[this.index].width, windowspares[this.index].height, this.window.x,this.window.y,this.window.width, this.window.height)
+
+                    }
                     this.window.draw()
                 }
             }
@@ -5770,33 +5801,55 @@ FrogSocketize(ws)
             icons[t].print()
         }
         // if(keysPressed['t']){
+            if(typing == 0){
+                if(enterlock == 1){
+                    typing = 1
+                    enterlock = 0
+                }
+            }
+
             icons[2].marked =1 
-            if(keysPressed['=']){
-
-if(textstring.length > 1){
-            let tson = {}
-            tson.color = getRandomColor()
-            tson.name = getRandomColor()+getRandomColor()
-            tson.text = textstring
-            tson.size = 0
+            if(typing == 1){
 
 
-                ws.send(JSON.stringify(tson))
-                tson = JSON.stringify(tson)
-
-                    textcanvas_context.font = "12px arial"
-                    textcanvas_context.fillStyle = JSON.parse(tson).color
-                    textcanvas_context.fillText(`(${JSON.parse(tson).name})`+ JSON.parse(tson).text, 0, textscroll)
-                    textscroll += 12
-                    console.log("wt")
-                textstring = ''
-}
+                    textcanvas_context.font = "14px arial"
+                    textcanvas_context.fillStyle = "white"
+                    textcanvas_context.clearRect(0,320+textscroll, 1000, 40)
+                    textcanvas_context.fillStyle = "#FF000022"
+                    textcanvas_context.fillRect(0,320+textscroll, 1000, 40)
+                    textcanvas_context.fillStyle = "white"
+                    textcanvas_context.fillText(textstring, 0, 340+textscroll)
 
 
-            // }else{
-            // }
-        }
+            if(keysPressed['Enter']){
+                if(textstring.length > 1){
+                            let tson = {}
+                            tson.color = getRandomLightColor()
+                            tson.name = namer
+                            tson.text = textstring
+                            tson.size = 0
+                            typing = 0
+                            enterlock = 0
+
+                                ws.send(JSON.stringify(tson))
+                                tson = JSON.stringify(tson)
+
+                                    textcanvas_context.font = "12px arial"
+                                    textcanvas_context.fillStyle = JSON.parse(tson).color
+                                    textcanvas_context.fillText(`(You) `+ JSON.parse(tson).text, 0, 300+textscroll)
+
+                    textcanvas_context.clearRect(0,320+textscroll, 1000, 40)
+                                    textscroll += 12
+                                    
+                                    // textcanvas_context.translate(0, 12)
+
+                                textstring = ''
+                }
+             }
+            }
     }
+
+    let namer = getRandomColor()
 })
 
   

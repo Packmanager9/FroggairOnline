@@ -1197,7 +1197,7 @@ let textstring = ""
 
             if(event.key == 'BackSpace' ||event.key == 'Backspace'){
                 let ts =  (textstring.split(''))
-                ts.splice(ts.length-2, 1)
+                ts.splice(ts.length-1, 1)
                 console.log(ts)
                 textstring = ts.join('')
             }

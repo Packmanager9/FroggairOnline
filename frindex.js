@@ -496,7 +496,7 @@ wss.on("connection", ws => {
                 sjon.playerIDs = ids
                 ws.send(JSON.stringify(sjon))
             } else {
-                console.log(JSON.parse(data))
+                // console.log(JSON.parse(data))
                 data = JSON.parse(data)
                 data.players = wss.clients.size 
                 //ah geex this is gonna be a bad thing to fix gggeez

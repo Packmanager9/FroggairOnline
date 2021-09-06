@@ -13,6 +13,7 @@
 
 window.addEventListener('DOMContentLoaded', (event) => {
 
+let chatsetup = 0
     let HOST = location.origin.replace(/^http/, 'ws')
         ws = new WebSocket(HOST);
     let enterlock = 0
@@ -2652,6 +2653,8 @@ DigSocketize(ws)
                     textcanvas_context.fillStyle = JSON.parse(data).color
                     if(typeof JSON.parse(data).name != "undefined"){
                     textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
+
+                    textcanvas_context.clearRect(0,320+textscroll, 1000, 40)
                     textscroll += 12
                     }
                     // textcanvas_context.translate(0, 12)
@@ -4369,6 +4372,32 @@ DigSocketize(ws)
             this.scores = []
             this.score = args.score
 
+
+                this.guidedis=3+ (this.flies*.12345)*.3
+                this.body.radius=5+ (this.flies*.12345)*.3
+                this.eye2.radius=1.1+ (this.flies*.12345)*.03
+                this.eye1.radius=1.1+ (this.flies*.12345)*.03
+                this.leg1.radius=3+ (this.flies*.12345)*.15
+                this.leg2.radius=3+ (this.flies*.12345)*.15
+                this.leg3.radius=3+ (this.flies*.12345)*.15
+                this.leg4.radius=3+ (this.flies*.12345)*.15
+                this.leg1x.radius=2+ (this.flies*.12345)*.09
+                this.leg2x.radius=2+ (this.flies*.12345)*.09
+                this.leg3x.radius=2+ (this.flies*.12345)*.09
+                this.leg4x.radius=2+ (this.flies*.12345)*.09
+                this.tongue.radius=3+ (this.flies*.12345)*.09
+    
+                this.leg1link.width =4+ (this.flies*.12345)* .15
+                this.leg2link.width =4+ (this.flies*.12345)* .15
+                this.leg2xlink.width =2.5+ (this.flies*.12345)* .15
+                this.leg1xlink.width =2.5+ (this.flies*.12345)* .15
+    
+                this.leg3link.width =4+ (this.flies*.12345)* .15
+                this.leg4link.width =4+ (this.flies*.12345)* .15
+                this.leg3xlink.width =2.5+ (this.flies*.12345)* .15
+                this.leg4xlink.width =2.5+ (this.flies*.12345)* .15
+
+
           }
         }
         draw(){
@@ -5604,6 +5633,8 @@ FrogSocketize(ws)
                     textcanvas_context.fillStyle = JSON.parse(data).color
                     if(typeof JSON.parse(data).name != "undefined"){
                     textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
+
+                    textcanvas_context.clearRect(0,320+textscroll, 1000, 40)
                     textscroll += 12
                     }
                     // textcanvas_context.translate(0, 12)

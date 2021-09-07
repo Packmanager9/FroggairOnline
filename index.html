@@ -4037,7 +4037,7 @@ let json = {}
                             if (world.grid[t][k].g + world.grid[t][k].b + world.grid[t][k].r <= 0) {
                                 world.grid[t][k].marked = 1
                             }
-            }
+                            }
                         }
                     }
                     if (world.grid[t][k].doesFootTouch(this.body)) {
@@ -4167,26 +4167,32 @@ let json = {}
                     block.r += (this.rands[`${this.counter}`] * (k / 50))
 
                     this.counter++
+                    this.counter %= 49999
                     if (this.rands[`${this.counter}`] < (.01 + (k / 1000000))) {
 
                     this.counter++
+                    this.counter %= 49999
                         block.g += (this.rands[`${this.counter}`] * (k / 50))
 
                     this.counter++
+                    this.counter %= 49999
                     }
                     block.g += (this.rands[`${this.counter}`] * (k / 250))
 
                     this.counter++
+                    this.counter %= 49999
                     if (this.rands[`${this.counter}`] < (.002 + (k / 1000000))) {
 
                     this.counter++
+                    this.counter %= 49999
                         block.b += (this.rands[`${this.counter}`] * (k / 50))
-                        // console.log( (this.rands[`${this.counter}`] * (k / 50)))
                     this.counter++
+                    this.counter %= 49999
                     }
                     block.b += (this.rands[`${this.counter}`] * (k / 900))
 
                     this.counter++
+                    this.counter %= 49999
                     this.grid[t].push(block)
                 }
             }

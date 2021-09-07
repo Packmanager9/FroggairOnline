@@ -4168,6 +4168,8 @@ let json = {}
 
                     this.counter++
                     if (this.rands[`${this.counter}`] < (.01 + (k / 1000000))) {
+
+                    this.counter++
                         block.g += (this.rands[`${this.counter}`] * (k / 50))
 
                     this.counter++
@@ -4176,7 +4178,10 @@ let json = {}
 
                     this.counter++
                     if (this.rands[`${this.counter}`] < (.002 + (k / 1000000))) {
+
+                    this.counter++
                         block.b += (this.rands[`${this.counter}`] * (k / 50))
+                        // console.log( (this.rands[`${this.counter}`] * (k / 50)))
                     this.counter++
                     }
                     block.b += (this.rands[`${this.counter}`] * (k / 900))

@@ -1772,6 +1772,7 @@ let textstring = ""
             this.strokeWidth = strokeWidth
             this.strokeColor = strokeColor
             this.id = racersId
+
             }else{
 
             this.id = args.id
@@ -1785,9 +1786,14 @@ let textstring = ""
             this.reflect =args.reflect
             this.strokeWidth =args.strokeWidth
             this.strokeColor =args.strokeColor
+
             }
         }
         draw() {
+
+            if(this.radius > 30){
+                this.small = new Circle(this.x, this.y, 20, "white")
+            }
             canvas_context.lineWidth = this.strokeWidth
             canvas_context.strokeStyle = this.color
             canvas_context.beginPath();
@@ -1834,6 +1840,9 @@ let textstring = ""
             }
             this.x += this.xmom
             this.y += this.ymom
+            if(this == racers[0]){
+                canvas_context.translate(-this.xmom, -this.ymom)
+            }
         }
         unmove() {
             if (this.reflect == 1) {
@@ -1860,6 +1869,10 @@ let textstring = ""
             }
             this.x -= this.xmom
             this.y -= this.ymom
+
+            if(this == racers[0]){
+                canvas_context.translate(this.xmom, this.ymom)
+            }
         }
         frictiveMove() {
             if (this.reflect == 1) {
@@ -1886,8 +1899,13 @@ let textstring = ""
             }
             this.x += this.xmom
             this.y += this.ymom
+
+            if(this == racers[0]){
+                canvas_context.translate(-this.xmom, -this.ymom)
+            }
             this.xmom *= this.friction
             this.ymom *= this.friction
+            
         }
         frictiveunMove() {
             if (this.reflect == 1) {
@@ -2716,13 +2734,20 @@ RaceSocketize(ws)
                 if(JSON.parse(data).race >= 0){
 
                 // console.log("hit")
-
+                if(JSON.parse(data).tile >= 0){
+                    for(let t = 0;t<rainbow.bodies.length;t++){
+                        rainbow.bodies[t].radius*=.985
+                    }
+                    rainbow.bodies.push(new Circle(1, 1, 1, 1, 1, 1, 1, 1, 1, 1,JSON.parse(data)))
+                    rainbow.index++
+                }else{
                   if(racersIds.includes(JSON.parse(data).id)){
                         racers[racersIds.indexOf(JSON.parse(data).id)] = new Circle(1, 1, 1, 1, 1, 1, 1, 1, 1, 1,JSON.parse(data))
                   }else{
                         racersIds.push(JSON.parse(data).id)
                         racers[racersIds.indexOf(JSON.parse(data).id)] = new Circle(1, 1, 1, 1, 1, 1, 1, 1, 1, 1,JSON.parse(data))
                   }
+                }
 
                  }else{
 
@@ -2755,19 +2780,36 @@ RaceSocketize(ws)
             this.angle = 0
             this.colors =  ["Red", "orange", "yellow", "#00ff00", "Cyan", "Blue", "purple"]
             this.bodies = []
-            for(let t = 0;t<50;t++){
+            for(let t = 0;t<106;t++){
             this.bodies.push(new Circle(this.center.x+(Math.cos(this.angle)*this.dis),  this.center.y+(Math.sin(this.angle)*this.dis), 45, this.colors[this.index%6]))
-                this.angle += .04
+                this.angle += .06
                 this.index++
-                this.dis += (Math.random()-.5)*5
+                this.dis += 5
             }
         }
         draw(){
             let wet = 0
-            for(let t = Math.max(this.index-45, 0); t< Math.max(this.index-45, 0)+44;t++ ){
+            let wetx = 0
+
+
+            let maxer = racers[0]
+
+
+                for(let k = 0;k<racers.length;k++){
+            for(let t = Math.max(this.index-105, 0)+104; t > Math.max(this.index-105, 0);t-- ){
+                    if(this.bodies[t].doesPerimeterTouch(racers[k])){
+                        // maxer = racers[k]
+                        break
+                    }
+                }
+            }
+            for(let t = Math.max(this.index-105, 0); t< Math.max(this.index-105, 0)+104;t++ ){
                 if(typeof this.bodies[t] != "undefined"){
                 this.bodies[t].draw()
 
+            if(maxer.doesPerimeterTouch(this.bodies[t])){
+                wetx = 1
+            }
             if(racers[0].doesPerimeterTouch(this.bodies[t])){
                 wet = 1
             }
@@ -2776,6 +2818,58 @@ RaceSocketize(ws)
 
 let j = 0
 let trap = 0
+    if(wetx == 0){
+ this.index++
+                this.angle += .125
+                this.dis += .3 // (Math.random()-.45)*15
+                if(this.dis > 300 ){
+                    this.dis = 300
+                }
+                if(this.dis < 50 ){
+                    this.dis = 50
+                }
+                // this.bodies.push(new Circle(this.center.x+(Math.cos(this.angle)*this.dis),  this.center.y+(Math.sin(this.angle)*this.dis), 45, this.colors[this.index%6] ))
+
+
+                let circl = new Circle(this.bodies[this.bodies.length-1].x + (maxer.xmom *2.5), this.bodies[this.bodies.length-1].y + (maxer.ymom *2.5), 45, this.colors[this.index%6] ) 
+                this.bodies.push(circl)
+                
+
+                let circlson = {}
+
+
+            circlson.tile = 1
+
+            circlson.race = 1
+            circlson.id = circl.id
+            circlson.x =circl.x
+            circlson.y =circl.y
+            circlson.radius =circl.radius
+            circlson.color =circl.color
+            circlson.xmom =circl.xmom
+            circlson.ymom =circl.ymom
+            circlson.friction =circl.friction
+            circlson.reflect =circl.reflect
+            circlson.strokeWidth =circl.strokeWidth
+            circlson.strokeColor =circl.strokeColor
+                ws.send(JSON.stringify(circlson))
+
+                    for(let t = 0; t< this.bodies.length;t++ ){
+                        if(this.bodies.length > 200){
+                        this.bodies[t].radius*=.985
+                        }
+                    }   
+
+this.bodies[Math.max(this.index-1, 0)].radius*= 1.5
+
+            if(maxer.doesPerimeterTouch(this.bodies[Math.max(this.index-1, 0)])){
+                wet = 1
+            }
+
+this.bodies[Math.max(this.index-1, 0)].radius/= 1.5
+    }
+
+
             while(wet == 0){
                 trap = 1
                 j++
@@ -2783,7 +2877,7 @@ let trap = 0
                 if(j>10000){
                     break
                 }        
-                    for(let t = Math.max(this.index-45, 0); t< Math.max(this.index-45, 0)+44;t++ ){
+                    for(let t = Math.max(this.index-105, 0); t< Math.max(this.index-105, 0)+104;t++ ){
 
                 if(typeof this.bodies[t] != "undefined"){
             if(racers[0].doesPerimeterTouch(this.bodies[t])){
@@ -2798,20 +2892,28 @@ let trap = 0
             }
             // this.bodies[this.index].color = getRandomColor()
             this.bodies[this.index].draw()
+            this.bodies[this.index].small.draw()
 
 
             for(let k = 0;k<racers.length;k++ ){
-            if(racers[k].doesPerimeterTouch(this.bodies[Math.max(this.index-15, 0)])){
-                this.index++
-                this.angle += .125
-                this.dis += .3 // (Math.random()-.45)*15
-                if(this.dis > 300 ){
-                    this.dis = 300
-                }
-                if(this.dis < 50 ){
-                    this.dis = 50
-                }
-                this.bodies.push(new Circle(this.center.x+(Math.cos(this.angle)*this.dis),  this.center.y+(Math.sin(this.angle)*this.dis), 45, this.colors[this.index%6] ))
+            if(!racers[k].doesPerimeterTouch(this.bodies[Math.max(this.index, 0)])){
+            if(racers[k].doesPerimeterTouch(this.bodies[Math.max(this.index-1, 0)])){
+                // this.index++
+                // this.angle += .125
+                // this.dis += .3 // (Math.random()-.45)*15
+                // if(this.dis > 300 ){
+                //     this.dis = 300
+                // }
+                // if(this.dis < 50 ){
+                //     this.dis = 50
+                // }
+                // // this.bodies.push(new Circle(this.center.x+(Math.cos(this.angle)*this.dis),  this.center.y+(Math.sin(this.angle)*this.dis), 45, this.colors[this.index%6] ))
+                // this.bodies.push(new Circle(this.bodies[this.bodies.length-1].x + (racers[0].xmom *3), this.bodies[this.bodies.length-1].y + (racers[0].ymom *3), 45, this.colors[this.index%6] ) )
+
+                //     for(let t = 0; t< this.bodies.length;t++ ){
+                //         this.bodies[t].radius*=.97
+                //     }   
+            }
             }
             }
         }
@@ -2822,7 +2924,7 @@ let trap = 0
     
 
     function main() {
-        canvas_context.clearRect(0, 0, canvas.width, canvas.height)  // refreshes the image
+        canvas_context.clearRect(-1000000,-1000000, canvas.width*1000000, canvas.height*1000000)  // refreshes the image
         gamepadAPI.update() //checks for button presses/stick movement on the connected controller)
         // // game code goes here
 

@@ -3991,27 +3991,27 @@ let json = {}
                 for (let k = 0; k < world.grid[t].length; k++) {
 
 
-                    let line = new LineOP(world.grid[t][k], this.body)
-                    if (line.hypotenuse() < 600) {
-                    if (diggers[0].fuel > 0) {
+                     this.line = new LineOP(world.grid[t][k], this.body)
+                    if (this.line.hypotenuse() < 600) {
+                    if (this.fuel > 0) {
                         if (world.grid[t][k].doesPerimeterTouch(this.drill)) {
 
             if(diggers.indexOf(this) == 0){
 
                             if (world.grid[t][k].r > 0) {
-                                world.grid[t][k].r -= diggers[0].redrate
-                                diggers[0].red += diggers[0].redrate
-                                diggers[0].redcount += diggers[0].redrate
+                                world.grid[t][k].r -= this.redrate
+                                this.red += this.redrate
+                                this.redcount += this.redrate
                             }
                             if (world.grid[t][k].b > 0) {
-                                world.grid[t][k].b -= diggers[0].bluerate
-                                diggers[0].blue += diggers[0].bluerate
-                                diggers[0].bluecount += diggers[0].bluerate
+                                world.grid[t][k].b -= this.bluerate
+                                this.blue += this.bluerate
+                                this.bluecount += this.bluerate
                             }
                             if (world.grid[t][k].g > 0) {
-                                world.grid[t][k].g -= diggers[0].greenrate
-                                diggers[0].green += diggers[0].greenrate
-                                diggers[0].greencount += diggers[0].greenrate
+                                world.grid[t][k].g -= this.greenrate
+                                this.green += this.greenrate
+                                this.greencount += this.greenrate
                             }
                             if (world.grid[t][k].g + world.grid[t][k].b + world.grid[t][k].r <= 0) {
                                 world.grid[t][k].marked = 1
@@ -4020,19 +4020,19 @@ let json = {}
             }else{
 
                             if (world.grid[t][k].r > 0) {
-                                world.grid[t][k].r -= diggers[0].redrate*1.1
-                                diggers[0].red += diggers[0].redrate*1.1
-                                diggers[0].redcount += diggers[0].redrate*1.1
+                                world.grid[t][k].r -= this.redrate*1.1
+                                this.red += this.redrate*1.1
+                                this.redcount += this.redrate*1.1
                             }
                             if (world.grid[t][k].b > 0) {
-                                world.grid[t][k].b -= diggers[0].bluerate*1.1
-                                diggers[0].blue += diggers[0].bluerate*1.1
-                                diggers[0].bluecount += diggers[0].bluerate*1.1
+                                world.grid[t][k].b -= this.bluerate*1.1
+                                this.blue += this.bluerate*1.1
+                                this.bluecount += this.bluerate*1.1
                             }
                             if (world.grid[t][k].g > 0) {
-                                world.grid[t][k].g -= diggers[0].greenrate*1.1
-                                diggers[0].green += diggers[0].greenrate*1.1
-                                diggers[0].greencount += diggers[0].greenrate*1.1
+                                world.grid[t][k].g -= this.greenrate*1.1
+                                this.green += this.greenrate*1.1
+                                this.greencount += this.greenrate*1.1
                             }
                             if (world.grid[t][k].g + world.grid[t][k].b + world.grid[t][k].r <= 0) {
                                 world.grid[t][k].marked = 1

@@ -2799,6 +2799,8 @@ RaceSocketize(ws)
             for(let t = Math.max(this.index-105, 0)+104; t > Math.max(this.index-105, 0);t-- ){
                     if(this.bodies[t].doesPerimeterTouch(racers[k])){
                         // maxer = racers[k]
+
+                racers[k].touched = this.bodies[t]
                         break
                     }
                 }
@@ -2873,18 +2875,6 @@ this.bodies[Math.max(this.index-1, 0)].radius/= 1.5
             while(wet == 0){
                 trap = 1
                 j++
-                if(this.bodies.indexOf(racers[0].touched) < Math.max(this.index-105, 0)) {
-
-                    canvas_context.translate(racers[0].x - this.bodies[Math.max(this.index-60, 0)].x, racers[0].y - this.bodies[Math.max(this.index-60, 0)].y)
-                racers[0].x = this.bodies[Math.max(this.index-60, 0)].x
-                racers[0].y = this.bodies[Math.max(this.index-60, 0)].y
-                }else{
-
-                    canvas_context.translate(racers[0].x - racers[0].touched.x, racers[0].y - racers[0].touched.y)
-                racers[0].x = racers[0].touched.x
-                racers[0].y = racers[0].touched.y
-                    
-                }
                 if(j>10000){
                     break
                 }        
@@ -2893,11 +2883,30 @@ this.bodies[Math.max(this.index-1, 0)].radius/= 1.5
                 if(typeof this.bodies[t] != "undefined"){
             if(racers[0].doesPerimeterTouch(this.bodies[t])){
                 wet = 1
-                racers[0].touched = this.bodies[t]
             }
                 }
             }
+
+
+                if(j ==1){
+
+                                if(this.bodies.indexOf(racers[0].touched)  < this.index - 60) {
+                                    console.log(racers[0].touched)
+                                    canvas_context.translate(racers[0].x - this.bodies[this.index - 60].x, racers[0].y - this.bodies[this.index - 60].y)
+                                racers[0].x = this.bodies[this.index - 60].x
+                                racers[0].y = this.bodies[this.index - 60].y
+                                }else{
+
+                                    canvas_context.translate(racers[0].x - racers[0].touched.x, racers[0].y - racers[0].touched.y)
+                                racers[0].x = racers[0].touched.x
+                                racers[0].y = racers[0].touched.y
+                                    
+                                }
+
+                }
+
             }
+
             if(trap == 1){
                 racers[0].xmom*=-.7
                 racers[0].ymom*=-.7

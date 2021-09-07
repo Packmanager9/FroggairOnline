@@ -2781,7 +2781,7 @@ RaceSocketize(ws)
             this.colors =  ["Red", "orange", "yellow", "#00ff00", "Cyan", "Blue", "purple"]
             this.bodies = []
             for(let t = 0;t<106;t++){
-            this.bodies.push(new Circle(this.center.x+(Math.cos(this.angle)*this.dis),  this.center.y+(Math.sin(this.angle)*this.dis), 45, this.colors[this.index%6]))
+            this.bodies.push(new Circle(this.center.x+(Math.cos(this.angle)*this.dis),  this.center.y+(Math.sin(this.angle)*this.dis), 65, this.colors[this.index%6]))
                 this.angle += .06
                 this.index++
                 this.dis += 5
@@ -2833,7 +2833,7 @@ let trap = 0
                 // this.bodies.push(new Circle(this.center.x+(Math.cos(this.angle)*this.dis),  this.center.y+(Math.sin(this.angle)*this.dis), 45, this.colors[this.index%6] ))
 
 
-                let circl = new Circle((this.bodies[this.bodies.length-1].x*.97 ) +(maxer.x*.03) + (maxer.xmom *2.5), (this.bodies[this.bodies.length-1].y*.97)+(maxer.y*.03) + (maxer.ymom *2.5), 45, this.colors[this.index%6] ) 
+                let circl = new Circle((this.bodies[this.bodies.length-1].x*.97 ) +(maxer.x*.03) + (maxer.xmom *2.5), (this.bodies[this.bodies.length-1].y*.97)+(maxer.y*.03) + (maxer.ymom *2.5), 65, this.colors[this.index%6] ) 
                 this.bodies.push(circl)
                 
 
@@ -2854,7 +2854,9 @@ let trap = 0
             circlson.reflect =circl.reflect
             circlson.strokeWidth =circl.strokeWidth
             circlson.strokeColor =circl.strokeColor
+            if(racers[0] == maxer){
                 ws.send(JSON.stringify(circlson))
+            }
 
                     for(let t = 0; t< this.bodies.length;t++ ){
                         if(this.bodies.length > 200){

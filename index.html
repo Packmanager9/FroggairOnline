@@ -2718,7 +2718,7 @@ let textstring = ""
 
 let racers = []
 
-    let racer = new Circle(450, 350, 5, "#FFFFFF", 0,0,.98)
+    let racer = new Circle(350, 350, 5, "#FFFFFF", 0,0,.98)
     racers.push(racer)
 
 
@@ -2831,7 +2831,7 @@ let trap = 0
                 // this.bodies.push(new Circle(this.center.x+(Math.cos(this.angle)*this.dis),  this.center.y+(Math.sin(this.angle)*this.dis), 45, this.colors[this.index%6] ))
 
 
-                let circl = new Circle(this.bodies[this.bodies.length-1].x + (maxer.xmom *2.5), this.bodies[this.bodies.length-1].y + (maxer.ymom *2.5), 45, this.colors[this.index%6] ) 
+                let circl = new Circle((this.bodies[this.bodies.length-1].x*.97 ) +(maxer.x*.03) + (maxer.xmom *2.5), (this.bodies[this.bodies.length-1].y*.97)+(maxer.y*.03) + (maxer.ymom *2.5), 45, this.colors[this.index%6] ) 
                 this.bodies.push(circl)
                 
 
@@ -2873,7 +2873,18 @@ this.bodies[Math.max(this.index-1, 0)].radius/= 1.5
             while(wet == 0){
                 trap = 1
                 j++
-                racers[0].unmove()
+                if(this.bodies.indexOf(racers[0].touched) < Math.max(this.index-105, 0)) {
+
+                    canvas_context.translate(racers[0].x - this.bodies[Math.max(this.index-60, 0)].x, racers[0].y - this.bodies[Math.max(this.index-60, 0)].y)
+                racers[0].x = this.bodies[Math.max(this.index-60, 0)].x
+                racers[0].y = this.bodies[Math.max(this.index-60, 0)].y
+                }else{
+
+                    canvas_context.translate(racers[0].x - racers[0].touched.x, racers[0].y - racers[0].touched.y)
+                racers[0].x = racers[0].touched.x
+                racers[0].y = racers[0].touched.y
+                    
+                }
                 if(j>10000){
                     break
                 }        
@@ -2882,6 +2893,7 @@ this.bodies[Math.max(this.index-1, 0)].radius/= 1.5
                 if(typeof this.bodies[t] != "undefined"){
             if(racers[0].doesPerimeterTouch(this.bodies[t])){
                 wet = 1
+                racers[0].touched = this.bodies[t]
             }
                 }
             }

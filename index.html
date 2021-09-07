@@ -3926,7 +3926,7 @@ let json = {}
             if(args == 0){
 
             this.id = digId
-            this.body = new Circle(350, 350, 12, "red", 0, 0, .99)
+            this.body = new Circle(350, 350, 12, namer, 0, 0, .99)
             this.drill = new Circle(canvas.width * .5, canvas.height * .5, 10, "yellow")
             this.angle = 0
             this.red = 0
@@ -3951,7 +3951,7 @@ let json = {}
             }else{
                 // console.log("bighit")
             this.id = args.id
-            this.body = new Circle(args.x, args.y, 12, "red", 0, 0, .99)
+            this.body = new Circle(args.x, args.y, 12, args.color, 0, 0, .99)
             this.drill = new Circle(args.x, args.y, 10, "yellow")
             this.angle = args.angle
             this.red = 0
@@ -3966,7 +3966,7 @@ let json = {}
             this.redrate = 2
             this.bluerate = .5
             this.greenrate = 1
-            this.money = 0
+            this.money = args.money
             this.greencount = 0
             this.redcount = 0
             this.bluecount = 0
@@ -4140,7 +4140,11 @@ let json = {}
             canvas_context.fillText(`Nitrogen: ${Math.round(this.green)}`, this.body.x - 330, this.body.y - 310)
             canvas_context.fillStyle = "blue"
             canvas_context.fillText(`Hydrogen: ${Math.round(this.blue)}`, this.body.x - 330, this.body.y - 290)
-            canvas_context.fillText(`$ ${Math.round(this.money)}`, this.body.x + 260, this.body.y - 330)
+            for(let t = 0;t<diggers.length;t++){
+
+            canvas_context.fillStyle = diggers[t].body.color
+            canvas_context.fillText(`$ ${Math.round(diggers[t].money)}`, this.body.x + 260, this.body.y - 330+(t*20))
+            }
             }
         }
     }
@@ -4314,9 +4318,9 @@ DigSocketize(ws)
                 let json ={}
                 json.diggers = 1
                 json.x = diggers[0].body.x
-                json.color = diggers[0].color
+                json.color = namer
                 json.id = diggers[0].id
-                json.score = diggers[0].money
+                json.money = diggers[0].money
                 json.y = diggers[0].body.y
                 json.angle = diggers[0].angle
                 ws.send(JSON.stringify(json))

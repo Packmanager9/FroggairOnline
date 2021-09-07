@@ -3199,7 +3199,7 @@ let json = {}
             // if (point.x + point.radius >= this.x) {
                 if (point.x >= this.x) {
                 if (point.y >= this.y) {
-                    if (point.x - point.radius <= this.x + this.width) {
+                    if (point.x  <= this.x + this.width) {
                         // if (point.y - point.radius <= this.y + this.height) {
                             if (point.y - point.radius <= this.y + this.height) {
                             return true
@@ -3847,10 +3847,15 @@ let json = {}
                     canvas_context.translate(-speed, 0)
                 }
             }
-            // if (keysPressed['s']) {
-            //     object.body.y += speed
-            //     canvas_context.translate(0, -speed)
-            // }
+            if (keysPressed['s']) {
+                if(object.dry == 0){
+                    
+                        object.body.y += (speed)
+                        object.body.ymom += .3
+                canvas_context.translate(0, -speed)
+
+                }
+            }
             if (keysPressed['a']) {
                 if (object.left == 0) {
                     object.body.x -= speed
@@ -4035,11 +4040,14 @@ let json = {}
                                 this.greencount += this.greenrate*1.1
                             }
                             if (world.grid[t][k].g + world.grid[t][k].b + world.grid[t][k].r <= 0) {
-                                world.grid[t][k].marked = 1
+
                                 let json = {}
                                 json.splicer = 1
-                                json.k = k
-                                json.t = t
+                                json.k = world.grid[t][k].k 
+                                json.t = world.grid[t][k].t
+
+
+                                world.grid[t][k].marked = 1
                             }
                             }
                         }
@@ -4050,11 +4058,12 @@ let json = {}
                     if (world.grid[t][k].doesHeadTouch(this.body)) {
                         this.head = 1
                     }
-                    if (world.grid[t][k].doesLeftTouch(this.body)) {
-                        this.left = 1
-                    }
+
                     if (world.grid[t][k].doesRightTouch(this.body)) {
                         this.right = 1
+                    }
+                    if (world.grid[t][k].doesLeftTouch(this.body)) {
+                        this.left = 1
                     }
                 }
                 }
@@ -4168,6 +4177,8 @@ let json = {}
                     this.counter++
                     this.counter %= 49999
                     let block = new Rectangle((t * 50) - 2000, k, 50, 50, getRandomColor())
+                    block.k = k
+                    block.t = t
                     block.r += (this.rands[`${this.counter}`] * (k / 50))
 
                     this.counter++
@@ -4251,6 +4262,20 @@ DigSocketize(ws)
 
 
                 if(JSON.parse(data).splicer >= 0){
+
+
+
+                        for(let t = 0;t<grid.blocks.length;t++){
+                            for(let k = 0;k<grid.blocks.length;k++){
+                                if(JSON.parse(data).t == grid.blocks[t][k].t){
+                                    if(JSON.parse(data).k == grid.blocks[t][k].k){
+                                        world.grid[t][k].marked = 1
+                                    }
+                                }
+                            }
+                        }
+
+
                     world.grid[JSON.parse(data).t][JSON.parse(data).k].marked = 1
 
                 }else if(JSON.parse(data).diggers >= 0){

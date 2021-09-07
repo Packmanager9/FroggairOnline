@@ -4022,24 +4022,6 @@ let json = {}
                                 world.grid[t][k].marked = 1
                             }
 
-            }else{
-
-                            if (world.grid[t][k].r > 0) {
-                                world.grid[t][k].r -= this.redrate*1.1
-                                this.red += this.redrate*1.1
-                                this.redcount += this.redrate*1.1
-                            }
-                            if (world.grid[t][k].b > 0) {
-                                world.grid[t][k].b -= this.bluerate*1.1
-                                this.blue += this.bluerate*1.1
-                                this.bluecount += this.bluerate*1.1
-                            }
-                            if (world.grid[t][k].g > 0) {
-                                world.grid[t][k].g -= this.greenrate*1.1
-                                this.green += this.greenrate*1.1
-                                this.greencount += this.greenrate*1.1
-                            }
-                            if (world.grid[t][k].g + world.grid[t][k].b + world.grid[t][k].r <= 0) {
 
                                 let json = {}
                                 json.splicer = 1
@@ -4047,8 +4029,34 @@ let json = {}
                                 json.t = world.grid[t][k].t
 
 
-                                world.grid[t][k].marked = 1
-                            }
+                                ws.send(JSON.stringify(json))
+            }else{
+
+                            // if (world.grid[t][k].r > 0) {
+                            //     world.grid[t][k].r -= this.redrate*1.1
+                            //     this.red += this.redrate*1.1
+                            //     this.redcount += this.redrate*1.1
+                            // }
+                            // if (world.grid[t][k].b > 0) {
+                            //     world.grid[t][k].b -= this.bluerate*1.1
+                            //     this.blue += this.bluerate*1.1
+                            //     this.bluecount += this.bluerate*1.1
+                            // }
+                            // if (world.grid[t][k].g > 0) {
+                            //     world.grid[t][k].g -= this.greenrate*1.1
+                            //     this.green += this.greenrate*1.1
+                            //     this.greencount += this.greenrate*1.1
+                            // }
+                            // if (world.grid[t][k].g + world.grid[t][k].b + world.grid[t][k].r <= 0) {
+
+                                // let json = {}
+                                // json.splicer = 1
+                                // json.k = world.grid[t][k].k 
+                                // json.t = world.grid[t][k].t
+
+
+                            //     world.grid[t][k].marked = 1
+                            // }
                             }
                         }
                     }
@@ -4265,18 +4273,16 @@ DigSocketize(ws)
 
 
 
-                        for(let t = 0;t<grid.blocks.length;t++){
-                            for(let k = 0;k<grid.blocks.length;k++){
-                                if(JSON.parse(data).t == grid.blocks[t][k].t){
-                                    if(JSON.parse(data).k == grid.blocks[t][k].k){
+                        for(let t = 0;t<world.grid.length;t++){
+                            for(let k = 0;k<world.grid[t].length;k++){
+                                if(JSON.parse(data).t == world.grid[t][k].t){
+                                    if(JSON.parse(data).k == world.grid[t][k].k){
                                         world.grid[t][k].marked = 1
                                     }
                                 }
                             }
                         }
 
-
-                    world.grid[JSON.parse(data).t][JSON.parse(data).k].marked = 1
 
                 }else if(JSON.parse(data).diggers >= 0){
 
@@ -4733,6 +4739,8 @@ DigSocketize(ws)
             this.stroke = stroke
             this.strokeWidth = strokeWidth
             this.fill = fill
+            this.t = 0
+            this.k = 0
         }
         draw() {
             canvas_context.fillStyle = this.color

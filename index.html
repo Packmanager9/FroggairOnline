@@ -2718,7 +2718,7 @@ let textstring = ""
 
 let racers = []
 
-    let racer = new Circle(350, 350, 5, "#FFFFFF", 0,0,.98)
+    let racer = new Circle(350, 350, 5, "#FFFFFF", 0,0,.979)
     racers.push(racer)
 
 
@@ -2803,7 +2803,7 @@ RaceSocketize(ws)
                     }
                 }
             }
-            for(let t = Math.max(this.index-105, 0); t< Math.max(this.index-105, 0)+104;t++ ){
+            for(let t = Math.max(this.index-105, 0); t< Math.max(this.index-105, 0)+105;t++ ){
                 if(typeof this.bodies[t] != "undefined"){
                 this.bodies[t].draw()
 

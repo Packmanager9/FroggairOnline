@@ -1800,7 +1800,7 @@ let textstring = ""
             if (this.radius > 0) {
                 canvas_context.arc(this.x, this.y, this.radius, 0, (Math.PI * 2), true)
 
-            if(this == racers[0]){
+            if(racers.includes(this)){
             canvas_context.strokeStyle = "black"
 
             canvas_context.lineWidth = 4

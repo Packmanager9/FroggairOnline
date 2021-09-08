@@ -1192,6 +1192,28 @@ let textstring = ""
         document.addEventListener('keydown', (event) => {
             keysPressed[event.key] = true;
 
+
+            if(keysPressed['Control'] || keysPressed['Meta']){
+                if(event.key == 'v'){
+                    var promise = navigator.clipboard.read();
+                    console.log(navigator.clipboard.readText().then(text =>textstring += text))
+                }
+
+                // if(event.key == 'c'){
+                //     copyText.value = textstring
+                //     copyText.select();
+                //     document.execCommand("copy")
+                // }
+
+
+
+
+            if(event.key == 'BackSpace' ||event.key == 'Backspace'){
+                textstring = ''
+            }
+
+            }else{
+
             if(event.key == 'Enter'){
                 enterlock = 1
             }else{           
@@ -1203,12 +1225,16 @@ let textstring = ""
                  }
             }
 
+
             if(event.key == 'BackSpace' ||event.key == 'Backspace'){
                 let ts =  (textstring.split(''))
                 ts.splice(ts.length-1, 1)
                 console.log(ts)
                 textstring = ts.join('')
             }
+
+            }
+
 
         });
         document.addEventListener('keyup', (event) => {
@@ -1234,6 +1260,8 @@ let textstring = ""
             }
             for(let t = 0;t<icons.length;t++){
                 // if(clear == 1){
+                    if(t != 2){
+
                   if(icons[t].ran == 1){
                     if(!icons[t].window.isPointInside(TIP_engine)){
                         icons[t].running = 0
@@ -1241,6 +1269,7 @@ let textstring = ""
                   }else{
                         icons[t].running = 0
                   }
+                    }
                 // }
             }
             // example usage: if(object.isPointInside(TIP_engine)){ take action }
@@ -2751,13 +2780,41 @@ RaceSocketize(ws)
 
                  }else{
 
+
+        if(booter.running == 0){
+            return
+        }
                     textcanvas_context.font = "12px arial"
                     textcanvas_context.fillStyle = JSON.parse(data).color
                     if(typeof JSON.parse(data).name != "undefined"){
-                    textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
+
+
+                        let ypointer  = 300+textscroll
+                        let stoarr =(`(${JSON.parse(data).name}) `+ ' ' + JSON.parse(data).text).split('')
+                        let stostring = ''
+                        for (let t = 0; t < stoarr.length; t++) {
+                            const width = textcanvas_context.measureText(stostring + '' + stoarr[t]).width
+                            if (width > 480) {
+                                textcanvas_context.fillText(stostring + '' + stoarr[t], 0, ypointer)
+                                 ypointer  += 12
+                                 textscroll  += 12
+                                stostring = ''
+                            } else {
+                                stostring = stostring + "" + stoarr[t]
+                                if (t == stoarr.length - 1) {
+
+                                 textscroll  += 12
+                                    textcanvas_context.fillText(stostring, 0, ypointer)
+                                }
+                            }
+                        }
+
+
+                    // textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
 
                     textcanvas_context.clearRect(0,320+textscroll, 1000, 40)
-                    textscroll += 12
+                    console.log(JSON.parse(data).measure)
+                    // textscroll += JSON.parse(data).measure
                     }
                     // textcanvas_context.translate(0, 12)
                     // textcanvas.translate(0, 12)
@@ -4305,13 +4362,44 @@ DigSocketize(ws)
 
                  }else{
 
+
+
+
+
+        if(booter.running == 0){
+            return
+        }
                     textcanvas_context.font = "12px arial"
                     textcanvas_context.fillStyle = JSON.parse(data).color
                     if(typeof JSON.parse(data).name != "undefined"){
-                    textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
+
+
+                        let ypointer  = 300+textscroll
+                        let stoarr =(`(${JSON.parse(data).name}) `+ ' ' + JSON.parse(data).text).split('')
+                        let stostring = ''
+                        for (let t = 0; t < stoarr.length; t++) {
+                            const width = textcanvas_context.measureText(stostring + '' + stoarr[t]).width
+                            if (width > 480) {
+                                textcanvas_context.fillText(stostring + '' + stoarr[t], 0, ypointer)
+                                 ypointer  += 12
+                                 textscroll  += 12
+                                stostring = ''
+                            } else {
+                                stostring = stostring + "" + stoarr[t]
+                                if (t == stoarr.length - 1) {
+
+                                 textscroll  += 12
+                                    textcanvas_context.fillText(stostring, 0, ypointer)
+                                }
+                            }
+                        }
+
+
+                    // textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
 
                     textcanvas_context.clearRect(0,320+textscroll, 1000, 40)
-                    textscroll += 12
+                    console.log(JSON.parse(data).measure)
+                    // textscroll += JSON.parse(data).measure
                     }
                     // textcanvas_context.translate(0, 12)
                     // textcanvas.translate(0, 12)
@@ -5959,7 +6047,7 @@ DigSocketize(ws)
               this.id = frogid
             this.type = 3
             this.flies = 0
-            this.color = getRandomColor()
+            this.color = namer
             this.angle = 0
             this.body = new Circle(350, 350, 5, this.color)
             this.guide = new Circle(353, 350, 3, this.color)
@@ -6335,7 +6423,7 @@ DigSocketize(ws)
               this.id = frogid
                 this.type = 4
             this.flies = 0
-            this.color = getRandomColor()
+            this.color = namer
             this.angle = 0
             this.body = new Circle(350, 350, 3, this.color)
             this.guide = new Circle(353, 350, 2, this.color)
@@ -6623,7 +6711,7 @@ DigSocketize(ws)
               this.id = frogid
             this.type = 1
             this.flies = 0
-            this.color = getRandomLightColor()
+            this.color = namer
             this.angle = 0
             this.body = new Circle(350, 350, 8, this.color)
             this.guide = new Circle(353, 350, 3, this.color)
@@ -6919,7 +7007,7 @@ DigSocketize(ws)
               this.id = frogid
             this.type = 2
             this.flies = 0
-            this.color = getRandomColor()
+            this.color = namer
             this.angle = 0
             this.body = new Circle(350, 350, 4, this.color)
             this.guide = new Circle(353, 350, 3, this.color)
@@ -7287,13 +7375,42 @@ FrogSocketize(ws)
                   // //console.log(tadpoles)
                 }else{
 
+
+
+        if(booter.running == 0){
+            return
+        }
                     textcanvas_context.font = "12px arial"
                     textcanvas_context.fillStyle = JSON.parse(data).color
                     if(typeof JSON.parse(data).name != "undefined"){
-                    textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
+
+
+                        let ypointer  = 300+textscroll
+                        let stoarr =(`(${JSON.parse(data).name}) `+ ' ' + JSON.parse(data).text).split('')
+                        let stostring = ''
+                        for (let t = 0; t < stoarr.length; t++) {
+                            const width = textcanvas_context.measureText(stostring + '' + stoarr[t]).width
+                            if (width > 480) {
+                                textcanvas_context.fillText(stostring + '' + stoarr[t], 0, ypointer)
+                                 ypointer  += 12
+                                 textscroll  += 12
+                                stostring = ''
+                            } else {
+                                stostring = stostring + "" + stoarr[t]
+                                if (t == stoarr.length - 1) {
+
+                                 textscroll  += 12
+                                    textcanvas_context.fillText(stostring, 0, ypointer)
+                                }
+                            }
+                        }
+
+
+                    // textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
 
                     textcanvas_context.clearRect(0,320+textscroll, 1000, 40)
-                    textscroll += 12
+                    console.log(JSON.parse(data).measure)
+                    // textscroll += JSON.parse(data).measure
                     }
                     // textcanvas_context.translate(0, 12)
                     // textcanvas.translate(0, 12)
@@ -8880,7 +8997,7 @@ FrogSocketize(ws)
 
                     }
                     if(this.index == 2){
-                        this.window = new Rectangle(710,360, 590, 360, "transparent")
+                        this.window = new Rectangle(710,360, 1280-710, 360, "transparent")
                         windowspares[this.index] = textcanvas
                         this.main = this.body.draw
                     }
@@ -8947,22 +9064,67 @@ FrogSocketize(ws)
             if(keysPressed['Enter']){
                 if(textstring.length > 1){
                             let tson = {}
-                            tson.color = getRandomLightColor()
+                            tson.color = namer
                             tson.name = namer
                             tson.text = textstring
+                                    textcanvas_context.font = "12px arial"
                             tson.size = 0
+
+                            let metrics = textcanvas_context.measureText(textstring);
+                            let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+                            let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+                            tson.measure = fontHeight+1
                             typing = 0
                             enterlock = 0
+                            
+                    textcanvas_context.clearRect(0,320+textscroll, 1000, 40)
 
                                 ws.send(JSON.stringify(tson))
                                 tson = JSON.stringify(tson)
 
-                                    textcanvas_context.font = "12px arial"
+
+
                                     textcanvas_context.fillStyle = JSON.parse(tson).color
-                                    textcanvas_context.fillText(`(You) `+ JSON.parse(tson).text, 0, 300+textscroll)
+
+
+                        let ypointer  = 300+textscroll
+                        let stoarr =(`(You) `+ ' ' + JSON.parse(tson).text).split('')
+                        let stostring = ''
+                        for (let t = 0; t < stoarr.length; t++) {
+                            const width = textcanvas_context.measureText(stostring + '' + stoarr[t]).width
+                            if (width > 480) {
+                                textcanvas_context.fillText(stostring + '' + stoarr[t], 0, ypointer)
+                                 ypointer  += 12
+                                 textscroll += 12
+                                stostring = ''
+                            } else {
+                                stostring = stostring + "" + stoarr[t]
+                                if (t == stoarr.length - 1) {
+
+                                 textscroll  += 12
+                                    textcanvas_context.fillText(stostring, 0, ypointer)
+                                }
+                            }
+                        }
+
+
+                    // textcanvas_context.fillText(`(${JSON.parse(data).name}) `+ JSON.parse(data).text, 0, 300+textscroll)
+
+                    console.log(JSON.parse(tson).measure)
+                    // textscroll += JSON.parse(tson).measure
+
+
+
+
+
+
+                                    // textcanvas_context.fillText(`(You) `+ JSON.parse(tson).text, 0, 300+textscroll)
 
                     textcanvas_context.clearRect(0,320+textscroll, 1000, 40)
-                                    textscroll += 12
+
+
+console.log(JSON.parse(tson).measure)
+                                    // textscroll +=  JSON.parse(tson).measure
                                     
                                     // textcanvas_context.translate(0, 12)
 
@@ -8972,7 +9134,7 @@ FrogSocketize(ws)
             }
     }
 
-    let namer = getRandomColor()
+    let namer = getRandomLightColor()
 
 
 // let clamp = {}
@@ -9001,6 +9163,28 @@ FrogSocketize(ws)
 </ul>
 </div>
 
- 
+
+
+
+MMMMMMMMMMMMMMMMMMMMvvvvMMMMvvMMMMMMMMMMMf
+MMMMMMMMMMMMMMMMMnn   nvvn  n?MMMMMMMMMM
+MMMMMMMMMMMMMMMMvn     ??n   nvMMMMMMMMM
+MMMMMMMMMMMMMMMMM?     nn     nvMMMMMMMM
+MMMMMMMMMMMMMMMM?n              nn?MMMMM
+MMMMMMMMMMMMMvnn                   ?MMMM
+MMMMMMMMMMMMvn                     nMMMM
+MMMMMMMMMMMn                       nvMMM
+MMMMMMMMM?n                        ?MMMM
+MMMMMMM?n                        nvMMMMM
+MMMMMvn                       n?vMMMMMMM
+MMMMvn                         n?MMMMMMM
+MMMMn                            nvMMMMM
+MMM?                              n?MMMM
+MMMn                               nvMMM
+MMMn                               n?MMM
+MMM?n                              nvMMM
+MMMM?n                            n?MMMM
+MMMMMvn                          n?MMMMM
+MMMMMMvn                        nvMMMMMM
 
 </html>

@@ -4020,7 +4020,6 @@ let json = {}
                             }
                             if (world.grid[t][k].g + world.grid[t][k].b + world.grid[t][k].r <= 0) {
                                 world.grid[t][k].marked = 1
-                            }
 
 
                                 let json = {}
@@ -4030,6 +4029,8 @@ let json = {}
 
 
                                 ws.send(JSON.stringify(json))
+                            }
+
             }else{
 
                             // if (world.grid[t][k].r > 0) {

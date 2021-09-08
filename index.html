@@ -4274,7 +4274,7 @@ DigSocketize(ws)
 
 
                         // for(let t = 0;t<world.grid.length;t++){
-                            for(let k = 0;k<world.grid[t].length;k++){
+                            for(let k = 0;k<world.grid[JSON.parse(data).t].length;k++){
                                 if(JSON.parse(data).t == world.grid[JSON.parse(data).t][k].t){
                                     if(JSON.parse(data).k == world.grid[JSON.parse(data).t][k].k){
                                         world.grid[JSON.parse(data).t][k].marked = 1

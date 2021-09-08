@@ -2794,7 +2794,7 @@ RaceSocketize(ws)
                         let stostring = ''
                         for (let t = 0; t < stoarr.length; t++) {
                             const width = textcanvas_context.measureText(stostring + '' + stoarr[t]).width
-                            if (width > 480) {
+                            if (width > textcanvas.width-12) {
                                 textcanvas_context.fillText(stostring + '' + stoarr[t], 0, ypointer)
                                  ypointer  += 12
                                  textscroll  += 12
@@ -4379,7 +4379,7 @@ DigSocketize(ws)
                         let stostring = ''
                         for (let t = 0; t < stoarr.length; t++) {
                             const width = textcanvas_context.measureText(stostring + '' + stoarr[t]).width
-                            if (width > 480) {
+                            if (width > textcanvas.width-12) {
                                 textcanvas_context.fillText(stostring + '' + stoarr[t], 0, ypointer)
                                  ypointer  += 12
                                  textscroll  += 12
@@ -7390,7 +7390,7 @@ FrogSocketize(ws)
                         let stostring = ''
                         for (let t = 0; t < stoarr.length; t++) {
                             const width = textcanvas_context.measureText(stostring + '' + stoarr[t]).width
-                            if (width > 480) {
+                            if (width > textcanvas.width-12) {
                                 textcanvas_context.fillText(stostring + '' + stoarr[t], 0, ypointer)
                                  ypointer  += 12
                                  textscroll  += 12
@@ -9092,7 +9092,7 @@ FrogSocketize(ws)
                         let stostring = ''
                         for (let t = 0; t < stoarr.length; t++) {
                             const width = textcanvas_context.measureText(stostring + '' + stoarr[t]).width
-                            if (width > 480) {
+                            if (width > textcanvas.width-12) {
                                 textcanvas_context.fillText(stostring + '' + stoarr[t], 0, ypointer)
                                  ypointer  += 12
                                  textscroll += 12
@@ -9164,27 +9164,5 @@ console.log(JSON.parse(tson).measure)
 </div>
 
 
-
-
-MMMMMMMMMMMMMMMMMMMMvvvvMMMMvvMMMMMMMMMMMf
-MMMMMMMMMMMMMMMMMnn   nvvn  n?MMMMMMMMMM
-MMMMMMMMMMMMMMMMvn     ??n   nvMMMMMMMMM
-MMMMMMMMMMMMMMMMM?     nn     nvMMMMMMMM
-MMMMMMMMMMMMMMMM?n              nn?MMMMM
-MMMMMMMMMMMMMvnn                   ?MMMM
-MMMMMMMMMMMMvn                     nMMMM
-MMMMMMMMMMMn                       nvMMM
-MMMMMMMMM?n                        ?MMMM
-MMMMMMM?n                        nvMMMMM
-MMMMMvn                       n?vMMMMMMM
-MMMMvn                         n?MMMMMMM
-MMMMn                            nvMMMMM
-MMM?                              n?MMMM
-MMMn                               nvMMM
-MMMn                               n?MMM
-MMM?n                              nvMMM
-MMMM?n                            n?MMMM
-MMMMMvn                          n?MMMMM
-MMMMMMvn                        nvMMMMMM
 
 </html>

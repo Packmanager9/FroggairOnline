@@ -4033,31 +4033,31 @@ let json = {}
 
             }else{
 
-                            // if (world.grid[t][k].r > 0) {
-                            //     world.grid[t][k].r -= this.redrate*1.1
-                            //     this.red += this.redrate*1.1
-                            //     this.redcount += this.redrate*1.1
-                            // }
-                            // if (world.grid[t][k].b > 0) {
-                            //     world.grid[t][k].b -= this.bluerate*1.1
-                            //     this.blue += this.bluerate*1.1
-                            //     this.bluecount += this.bluerate*1.1
-                            // }
-                            // if (world.grid[t][k].g > 0) {
-                            //     world.grid[t][k].g -= this.greenrate*1.1
-                            //     this.green += this.greenrate*1.1
-                            //     this.greencount += this.greenrate*1.1
-                            // }
-                            // if (world.grid[t][k].g + world.grid[t][k].b + world.grid[t][k].r <= 0) {
+                            if (world.grid[t][k].r > 0) {
+                                world.grid[t][k].r -= this.redrate*1.1
+                                this.red += this.redrate*1.1
+                                this.redcount += this.redrate*1.1
+                            }
+                            if (world.grid[t][k].b > 0) {
+                                world.grid[t][k].b -= this.bluerate*1.1
+                                this.blue += this.bluerate*1.1
+                                this.bluecount += this.bluerate*1.1
+                            }
+                            if (world.grid[t][k].g > 0) {
+                                world.grid[t][k].g -= this.greenrate*1.1
+                                this.green += this.greenrate*1.1
+                                this.greencount += this.greenrate*1.1
+                            }
+                            if (world.grid[t][k].g + world.grid[t][k].b + world.grid[t][k].r <= 0) {
 
-                                // let json = {}
-                                // json.splicer = 1
-                                // json.k = world.grid[t][k].k 
-                                // json.t = world.grid[t][k].t
+                                let json = {}
+                                json.splicer = 1
+                                json.k = world.grid[t][k].k 
+                                json.t = world.grid[t][k].t
 
 
-                            //     world.grid[t][k].marked = 1
-                            // }
+                                world.grid[t][k].marked = 1
+                            }
                             }
                         }
                     }

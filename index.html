@@ -3148,7 +3148,7 @@ let json = {}
             this.fill = fill
         }
         draw() {
-            this.color = `rgba(${this.r},${this.g},${this.b}, 1)`
+            this.color = `rgba(${this.r*2.5},${this.g*2.5},${this.b*2.5}, 1)`
             canvas_context.strokeStyle = this.color
             canvas_context.fillStyle = this.color
             canvas_context.fillRect(this.x, this.y, this.width, this.height)
@@ -4067,7 +4067,6 @@ let json = {}
                     if (world.grid[t][k].doesHeadTouch(this.body)) {
                         this.head = 1
                     }
-
                     if (world.grid[t][k].doesRightTouch(this.body)) {
                         this.right = 1
                     }
@@ -4128,7 +4127,7 @@ let json = {}
 
             this.fuelgauge = new Rectangle(this.body.x - 330, this.body.y - 270, 100, 20, "red")
             this.fuelgauge.width = (this.fuel / this.maxfuel) * 100
-            this.fuel -= .03
+            // this.fuel -= .03
             if (this.fuel < 0) {
                 this.fuel = 0
             }
@@ -4137,10 +4136,10 @@ let json = {}
             this.fuelgauge.b = 0
 
             if(diggers.indexOf(this) == 0){
-            this.fuelgauge.draw()
+            // this.fuelgauge.draw()
 
-            canvas_context.strokeStyle = "gray"
-            canvas_context.strokeRect(this.fuelgauge.x-1, this.fuelgauge.y-1, 102, this.fuelgauge.height+2)
+            // canvas_context.strokeStyle = "gray"
+            // canvas_context.strokeRect(this.fuelgauge.x-1, this.fuelgauge.y-1, 102, this.fuelgauge.height+2)
 
             }
             this.drill = new Circle(this.body.x + (Math.cos(((Math.random()*-.5)*.35)+this.angle) * 17), this.body.y + (Math.sin(((Math.random()*-.5)*.35)+this.angle) * 17), 3, "yellow")
@@ -4158,14 +4157,20 @@ let json = {}
 
             if(diggers.indexOf(this) == 0){
             canvas_context.font = "20px arial"
-            canvas_context.fillStyle = "red"
-            canvas_context.fillText(`Carbon: ${Math.round(this.red)}`, this.body.x - 330, this.body.y - 330)
-            canvas_context.fillStyle = "green"
-            canvas_context.fillText(`Nitrogen: ${Math.round(this.green)}`, this.body.x - 330, this.body.y - 310)
-            canvas_context.fillStyle = "blue"
-            canvas_context.fillText(`Hydrogen: ${Math.round(this.blue)}`, this.body.x - 330, this.body.y - 290)
+            // canvas_context.fillStyle = "red"
+            // canvas_context.fillText(`Carbon: ${Math.round(this.red)}`, this.body.x - 330, this.body.y - 330)
+            // canvas_context.fillStyle = "green"
+            // canvas_context.fillText(`Nitrogen: ${Math.round(this.green)}`, this.body.x - 330, this.body.y - 310)
+            // canvas_context.fillStyle = "blue"
+            // canvas_context.fillText(`Hydrogen: ${Math.round(this.blue)}`, this.body.x - 330, this.body.y - 290)
             for(let t = 0;t<diggers.length;t++){
 
+            canvas_context.strokeStyle = "black"
+            canvas_context.lineWidth = 2
+            canvas_context.font = "20px arial"
+            canvas_context.strokeText(`$ ${Math.round(diggers[t].money)}`, this.body.x + 260, this.body.y - 330+(t*20))
+
+            canvas_context.font = "20px arial"
             canvas_context.fillStyle = diggers[t].body.color
             canvas_context.fillText(`$ ${Math.round(diggers[t].money)}`, this.body.x + 260, this.body.y - 330+(t*20))
             }
@@ -4188,32 +4193,32 @@ let json = {}
                     let block = new Rectangle((t * 50) - 2000, k, 50, 50, getRandomColor())
                     block.k = k
                     block.t = t
-                    block.r += (this.rands[`${this.counter}`] * (k / 50))
+                    block.r += (this.rands[`${this.counter}`] * (k / 20))
 
                     this.counter++
                     this.counter %= 49999
-                    if (this.rands[`${this.counter}`] < (.01 + (k / 1000000))) {
+                    if (this.rands[`${this.counter}`] < (.04 + (k / 1000000))) {
 
                     this.counter++
                     this.counter %= 49999
-                        block.g += (this.rands[`${this.counter}`] * (k / 50))
+                        block.g += (this.rands[`${this.counter}`] * (k / 20))
 
                     this.counter++
                     this.counter %= 49999
                     }
-                    block.g += (this.rands[`${this.counter}`] * (k / 250))
+                    block.g += (this.rands[`${this.counter}`] * (k / 100))
 
                     this.counter++
                     this.counter %= 49999
-                    if (this.rands[`${this.counter}`] < (.002 + (k / 1000000))) {
+                    if (this.rands[`${this.counter}`] < (.02 + (k / 1000000))) {
 
                     this.counter++
                     this.counter %= 49999
-                        block.b += (this.rands[`${this.counter}`] * (k / 50))
+                        block.b += (this.rands[`${this.counter}`] * (k / 20))
                     this.counter++
                     this.counter %= 49999
                     }
-                    block.b += (this.rands[`${this.counter}`] * (k / 900))
+                    block.b += (this.rands[`${this.counter}`] * (k / 180))
 
                     this.counter++
                     this.counter %= 49999
@@ -4254,9 +4259,9 @@ let json = {}
 let diggers = []
     let world = new Grid()
      diggers[0] = new Digger()
-    let fueldepot = new Rectangle(250, 250, 100, 100, "white")
-    let selldepot = new Rectangle(450, 250, 100, 100, "white")
-    let upgradedepot = new Rectangle(650, 250, 100, 100, "white")
+    let fueldepot = new Rectangle(-1000000250, 250, 100, 100, "white")
+    let selldepot = new Rectangle(-10000, -10000, 200000, 200000, "white")
+    let upgradedepot = new Rectangle(-10000000, 0, 0, 0, "white")
     let particles = []
 
 
@@ -4328,13 +4333,13 @@ DigSocketize(ws)
         canvas_context.fillRect(-10000, -10000, canvas.width * 1000, canvas.height * 1000)  // refreshes the image
         world.draw()
         world.clean()
-        fueldepot.draw()
-        selldepot.draw()
-        upgradedepot.draw()
-        canvas_context.fillStyle = "white"
-        canvas_context.fillText("fuel", 280, 280)
-        canvas_context.fillText("sell", 480, 280)
-        canvas_context.fillText("upgrade", 660, 280)
+        // fueldepot.draw()
+        // selldepot.draw()
+        // upgradedepot.draw()
+        // canvas_context.fillStyle = "white"
+        // canvas_context.fillText("fuel", 280, 280)
+        // canvas_context.fillText("sell", 480, 280)
+        // canvas_context.fillText("upgrade", 660, 280)
         if (fueldepot.doesPerimeterTouch(diggers[0].body)) {
             if (diggers[0].money >= (diggers[0].maxfuel - diggers[0].fuel)) {
                 diggers[0].money -= (diggers[0].maxfuel - diggers[0].fuel)
